@@ -40,8 +40,11 @@ fi
 
 if ! command -v tte &>/dev/null; then
   echo "  → Installing tte..."
-  if command -v pip3 &>/dev/null;   then pip3 install --user terminaltexteffects --break-system-packages
-  else pip install --user terminaltexteffects --break-system-packages
+  PIP_OPTS="--user terminaltexteffects --break-system-packages"
+  if command -v pip3 &>/dev/null; then
+    pip3 install $PIP_OPTS
+  else
+    pip install $PIP_OPTS
   fi
 else
   echo "  ✓ tte"
