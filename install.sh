@@ -7,11 +7,11 @@ echo ""
 echo "  SondeR Screensaver — Installer"
 echo "  ================================"
 echo ""
-echo "[1/4] Checking dependencies..."
+echo "[1/5] Checking dependencies..."
 
 if ! command -v alacritty &>/dev/null; then
-  if command -v dnf &>/dev/null;    then sudo dnf install -y alacritty
-  elif command -v apt &>/dev/null;  then sudo apt install -y alacritty
+  if command -v dnf &>/dev/null;     then sudo dnf install -y alacritty
+  elif command -v apt &>/dev/null;   then sudo apt install -y alacritty
   elif command -v pacman &>/dev/null; then sudo pacman -S --noconfirm alacritty
   else echo "  [!] Install alacritty manually: https://alacritty.org"; exit 1
   fi
@@ -20,8 +20,8 @@ else
 fi
 
 if ! command -v xdotool &>/dev/null; then
-  if command -v dnf &>/dev/null;    then sudo dnf install -y xdotool
-  elif command -v apt &>/dev/null;  then sudo apt install -y xdotool
+  if command -v dnf &>/dev/null;     then sudo dnf install -y xdotool
+  elif command -v apt &>/dev/null;   then sudo apt install -y xdotool
   elif command -v pacman &>/dev/null; then sudo pacman -S --noconfirm xdotool
   else echo "  [!] Install xdotool manually."; exit 1
   fi
@@ -29,21 +29,25 @@ else
   echo "  ✓ xdotool"
 fi
 
+if ! command -v pip3 &>/dev/null && ! command -v pip &>/dev/null; then
+  echo "  → Installing pip3..."
+  if command -v dnf &>/dev/null;     then sudo dnf install -y python3-pip
+  elif command -v apt &>/dev/null;   then sudo apt install -y python3-pip
+  elif command -v pacman &>/dev/null; then sudo pacman -S --noconfirm python-pip
+  else echo "  [!] Install pip manually."; exit 1
+  fi
+fi
+
 if ! command -v tte &>/dev/null; then
-  if command -v pip3 &>/dev/null;   then pip3 install --user terminaltexteffects
-  elif command -v pip &>/dev/null;  then pip install --user terminaltexteffects
-  else
-    echo "  [!] pip not found. Install it first:"
-    echo "      Fedora:  sudo dnf install python3-pip"
-    echo "      Debian:  sudo apt install python3-pip"
-    echo "      Arch:    sudo pacman -S python-pip"
-    exit 1
+  echo "  → Installing tte..."
+  if command -v pip3 &>/dev/null;    then pip3 install --user terminaltexteffects
+  else pip install --user terminaltexteffects
   fi
 else
   echo "  ✓ tte"
 fi
 
-echo "[2/4] Installing files..."
+echo "[2/5] Installing files..."
 mkdir -p "$INSTALL_DIR" "$HOME/.local/bin"
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cp "$REPO_DIR/sonder-screensaver.sh" "$INSTALL_DIR/"
@@ -51,21 +55,25 @@ cp "$REPO_DIR/Yourtext.txt"          "$INSTALL_DIR/"
 chmod +x "$INSTALL_DIR/sonder-screensaver.sh"
 echo "  ✓ Files installed"
 
-echo "[3/4] Creating launcher..."
+echo "[3/5] Creating launcher..."
 ln -sf "$INSTALL_DIR/sonder-screensaver.sh" "$BIN_LINK"
 echo "  ✓ Launcher created"
 
-echo "[4/4] Checking PATH..."
-if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
-  echo ""
-  echo "  [!] Add this to your ~/.bashrc or ~/.zshrc:"
-  echo "        export PATH=\"\$HOME/.local/bin:\$PATH\""
-  echo "      Then run: source ~/.bashrc"
+echo "[4/5] Adding ~/.local/bin to PATH..."
+SHELL_RC="$HOME/.bashrc"
+if [[ "$SHELL" == *zsh* ]]; then SHELL_RC="$HOME/.zshrc"; fi
+if ! grep -q 'local/bin' "$SHELL_RC" 2>/dev/null; then
+  echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$SHELL_RC"
+  echo "  ✓ Added to $SHELL_RC"
 else
-  echo "  ✓ PATH OK"
+  echo "  ✓ PATH already set"
 fi
+export PATH="$HOME/.local/bin:$PATH"
 
+echo "[5/5] Done!"
 echo ""
-echo "  ✓ Done! Run with: sonder-screensaver"
-echo "  Customize:        nano $INSTALL_DIR/Yourtext.txt"
+echo "  ✓ Run with: sonder-screensaver"
+echo "  Customize:  nano $INSTALL_DIR/Yourtext.txt"
+echo ""
+echo "  NOTE: Open a new terminal or run: source ~/.bashrc"
 echo ""
