@@ -1,14 +1,18 @@
 #!/bin/bash
 # SondeR Screensaver — by VerisondeR
 # All files live in ~/.local/share/sonder-screensaver/
-# Edit Yourtext.txt there to change the ASCII art.
 
 INSTALL_DIR="$HOME/.local/share/sonder-screensaver"
 TEXT_FILE="$INSTALL_DIR/Yourtext.txt"
+TTE_BIN="$(which tte 2>/dev/null || echo "$HOME/.local/bin/tte")"
 
 if [[ ! -f "$TEXT_FILE" ]]; then
-  echo "Error: $TEXT_FILE not found."
-  echo "Run install.sh first."
+  echo "Error: $TEXT_FILE not found. Run install.sh first."
+  exit 1
+fi
+
+if [[ ! -x "$TTE_BIN" ]]; then
+  echo "Error: tte not found. Run install.sh first."
   exit 1
 fi
 
@@ -17,6 +21,7 @@ WINIT_UNIX_BACKEND=x11 alacritty \
   -o "colors.primary.background='#000000'" \
   -e bash -c "
   TEXT_FILE='$TEXT_FILE'
+  TTE_BIN='$TTE_BIN'
   tput civis
   stty -echo
   sleep 0.8
@@ -26,7 +31,7 @@ WINIT_UNIX_BACKEND=x11 alacritty \
     xdotool mousemove 0 0 2>/dev/null
     C=\$(tput cols)
     L=\$(tput lines)
-    tte --input-file \"\$TEXT_FILE\" \
+    \"\$TTE_BIN\" --input-file \"\$TEXT_FILE\" \
         --canvas-width \$C \
         --canvas-height \$L \
         --anchor-canvas c \
