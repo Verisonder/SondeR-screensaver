@@ -1,6 +1,6 @@
 # SondeR Screensaver
 
-A fullscreen terminal screensaver with animated ASCII art — built on [terminal-text-effects (tte)](https://github.com/ChrisBuilds/terminaltexteffects) and Alacritty.
+An Omarchy style fullscreen terminal screensaver with animated ASCII art — built on [terminal-text-effects (tte)](https://github.com/ChrisBuilds/terminaltexteffects) and Alacritty.
 
 **By [VerisondeR](https://github.com/Verisonder)**
 
