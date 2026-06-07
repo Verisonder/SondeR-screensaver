@@ -16,9 +16,11 @@ if [[ ! -x "$TTE_BIN" ]]; then
   exit 1
 fi
 
-# Hide mouse cursor
-unclutter -idle 0 -root &
-UNCLUTTER_PID=$!
+# Hide cursor (Hyprland native)
+hyprctl keyword cursor:invisible true 2>/dev/null
+
+# Hide cursor (X11 fallback)
+unclutter -idle 0 -root & UNCLUTTER_PID=$!
 
 WINIT_UNIX_BACKEND=x11 alacritty \
   -o "window.startup_mode='Fullscreen'" \
@@ -51,4 +53,5 @@ WINIT_UNIX_BACKEND=x11 alacritty \
 "
 
 # Restore cursor on exit
+hyprctl keyword cursor:invisible false 2>/dev/null
 kill $UNCLUTTER_PID 2>/dev/null
