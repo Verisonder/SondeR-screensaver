@@ -9,6 +9,15 @@ echo "  ================================"
 echo ""
 echo "[1/5] Checking dependencies..."
 
+if ! command -v unclutter &>/dev/null; then
+  if command -v dnf &>/dev/null;     then sudo dnf install -y unclutter
+  elif command -v apt &>/dev/null;   then sudo apt install -y unclutter
+  elif command -v pacman &>/dev/null; then sudo pacman -S --noconfirm unclutter
+  fi
+else
+  echo "  ✓ unclutter"
+fi
+
 if ! command -v alacritty &>/dev/null; then
   if command -v dnf &>/dev/null;     then sudo dnf install -y alacritty
   elif command -v apt &>/dev/null;   then sudo apt install -y alacritty

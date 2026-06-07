@@ -16,6 +16,10 @@ if [[ ! -x "$TTE_BIN" ]]; then
   exit 1
 fi
 
+# Hide mouse cursor
+unclutter -idle 0 -root &
+UNCLUTTER_PID=$!
+
 WINIT_UNIX_BACKEND=x11 alacritty \
   -o "window.startup_mode='Fullscreen'" \
   -o "colors.primary.background='#000000'" \
@@ -28,7 +32,6 @@ WINIT_UNIX_BACKEND=x11 alacritty \
   cleanup() { tput cnorm; stty echo; exit 0; }
   trap cleanup EXIT
   while true; do
-    xdotool mousemove 0 0 2>/dev/null
     C=\$(tput cols)
     L=\$(tput lines)
     \"\$TTE_BIN\" --input-file \"\$TEXT_FILE\" \
@@ -46,3 +49,6 @@ WINIT_UNIX_BACKEND=x11 alacritty \
     done
   done
 "
+
+# Restore cursor on exit
+kill $UNCLUTTER_PID 2>/dev/null
