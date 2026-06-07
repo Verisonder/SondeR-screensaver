@@ -40,16 +40,21 @@ fi
 
 if ! command -v tte &>/dev/null; then
   echo "  → Installing tte..."
-  if command -v pip3 &>/dev/null;    then pip3 install --user terminaltexteffects
-  else pip install --user terminaltexteffects
+  if command -v pip3 &>/dev/null;   then pip3 install --user terminaltexteffects --break-system-packages
+  else pip install --user terminaltexteffects --break-system-packages
   fi
 else
   echo "  ✓ tte"
 fi
 
 echo "[2/5] Installing files..."
-mkdir -p "$INSTALL_DIR" "$HOME/.local/bin"
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ ! -f "$REPO_DIR/sonder-screensaver.sh" ] || [ ! -f "$REPO_DIR/Yourtext.txt" ]; then
+  echo "  [!] Missing source components in execution directory."
+  exit 1
+fi
+
+mkdir -p "$INSTALL_DIR" "$HOME/.local/bin"
 cp "$REPO_DIR/sonder-screensaver.sh" "$INSTALL_DIR/"
 cp "$REPO_DIR/Yourtext.txt"          "$INSTALL_DIR/"
 chmod +x "$INSTALL_DIR/sonder-screensaver.sh"
