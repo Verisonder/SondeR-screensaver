@@ -8,15 +8,6 @@ A fullscreen terminal screensaver with animated ASCII art — built on [terminal
 
 ## Preview
 [![SondeR Screensaver Demo](https://img.youtube.com/vi/UCu_OjA44_o/maxresdefault.jpg)](https://youtu.be/UCu_OjA44_o)
-   ▄████████  ▄██████▄  ███▄▄▄▄   ████████▄     ▄████████  ████████▄
-  ███    ███ ███    ███ ███▀▀▀██▄ ███   ▀███   ███    ███  ███    ███
-  ███    █▀  ███    ███ ███   ███ ███    ███   ███    █▀   ███    ███
-  ███        ███    ███ ███   ███ ███    ███  ▄███▄▄▄      ▀██▄▄▄▄███▄
-▀███████████ ███    ███ ███   ███ ███    ███ ▀▀███▀▀▀       ▀▀▀▀▀███▀▀
-         ███ ███    ███ ███   ███ ███    ███   ███    █▄  ███████████▀
-   ▄█    ███ ███    ███ ███   ███ ███   ▄███   ███    ███ ███    ███
- ▄████████▀   ▀██████▀   ▀█   █▀  ████████▀    ██████████ ███    ███
-                                                          ███    ███
 
 The animation effect is chosen randomly each run. Press **any key** to exit.
 
