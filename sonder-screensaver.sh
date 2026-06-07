@@ -9,7 +9,7 @@ WINIT_UNIX_BACKEND=x11 alacritty \
   -o "window.startup_mode='Fullscreen'" \
   -o "colors.primary.background='#000000'" \
   -e bash -c "
-  TEXTFILE='$TEXT_FILE'
+  TEXTFILE="$TEXT_FILE"
   tput civis
   stty -echo
   sleep 0.8
