@@ -7,6 +7,7 @@ A fullscreen terminal screensaver with animated ASCII art — built on [terminal
 ---
 
 ## Preview
+[![SondeR Screensaver Demo](https://img.youtube.com/vi/UCu_OjA44_o/maxresdefault.jpg)](https://youtu.be/UCu_OjA44_o)
    ▄████████  ▄██████▄  ███▄▄▄▄   ████████▄     ▄████████  ████████▄
   ███    ███ ███    ███ ███▀▀▀██▄ ███   ▀███   ███    ███  ███    ███
   ███    █▀  ███    ███ ███   ███ ███    ███   ███    █▀   ███    ███
@@ -133,8 +134,3 @@ To use a different key, replace `Space` with any key name from the [Hyprland key
 
 To use a different key, press any key combination in step 4 instead.
 
----
-
-## Demo
-
-[![SondeR Screensaver Demo](https://img.youtube.com/vi/UCu_OjA44_o/maxresdefault.jpg)](https://youtu.be/UCu_OjA44_o)
