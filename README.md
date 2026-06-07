@@ -98,3 +98,37 @@ rm ~/.local/bin/sonder-screensaver
 ## License
 
 MIT — do whatever you want with it.
+
+---
+
+## Keybinding Setup
+
+Default shortcut: **Super + Alt + Space**
+
+### Hyprland
+
+Add this line to `~/.config/hypr/hyprland.conf`:
+
+```bash
+bind = SUPER ALT, Space, exec, sonder-screensaver
+```
+
+Then reload Hyprland:
+
+```bash
+hyprctl reload
+```
+
+To use a different key, replace `Space` with any key name from the [Hyprland key list](https://wiki.hyprland.org/Configuring/Binds/).
+
+---
+
+### KDE Plasma
+
+1. Open **System Settings → Shortcuts → Custom Shortcuts**
+2. Click **Edit → New → Global Shortcut → Command/URL**
+3. Set the command to: `sonder-screensaver`
+4. Click the **Trigger** tab and press **Super + Alt + Space**
+5. Click **Apply**
+
+To use a different key, press any key combination in step 4 instead.
