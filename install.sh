@@ -21,7 +21,7 @@ fi
 if ! command -v alacritty &>/dev/null; then
   if command -v dnf &>/dev/null;     then sudo dnf install -y alacritty
   elif command -v apt &>/dev/null;   then sudo apt install -y alacritty
-  elif command -v pacman &>/dev/null; then sudo pacman -S --noconfirm alacritty
+  elif command -v pacman &>/dev/null; then sudo pacman -Sy --noconfirm alacritty
   else echo "  [!] Install alacritty manually: https://alacritty.org"; exit 1
   fi
 else
