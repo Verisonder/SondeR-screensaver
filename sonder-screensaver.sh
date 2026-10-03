@@ -16,8 +16,15 @@ if [[ ! -x "$TTE_BIN" ]]; then
   exit 1
 fi
 
-# Hide cursor (Hyprland native)
-hyprctl keyword cursor:invisible true 2>/dev/null
+# Hide cursor (Hyprland). Lua configs (Hyprland 0.56+) only accept "eval";
+# older hyprlang configs only accept "keyword" — send both, one of them applies.
+cursor() {
+  hyprctl eval "hl.config({ cursor = { invisible = $1 } })" > /dev/null 2>&1
+  hyprctl keyword cursor:invisible "$1" > /dev/null 2>&1
+}
+restore() { cursor false; kill $UNCLUTTER_PID 2>/dev/null; }
+trap restore EXIT
+cursor true
 
 # Hide cursor (X11 fallback)
 unclutter -idle 0 -root & UNCLUTTER_PID=$!
@@ -52,6 +59,4 @@ WINIT_UNIX_BACKEND=x11 alacritty \
   done
 "
 
-# Restore cursor on exit
-hyprctl keyword cursor:invisible false 2>/dev/null
-kill $UNCLUTTER_PID 2>/dev/null
+# cursor comes back through the EXIT trap (also if the screensaver is killed)

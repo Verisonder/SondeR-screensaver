@@ -22,7 +22,7 @@ The animation effect is chosen randomly each run. Press **any key** to exit.
 | `git` | Clone the repo | Usually pre-installed |
 | `python3` + `pip3` | Install tte | Usually pre-installed |
 | `alacritty` | Terminal window | ✓ Yes |
-| `xdotool` | Hide mouse cursor | ✓ Yes |
+| `unclutter` | Hide mouse cursor on X11 (Hyprland hides it natively) | ✓ Yes |
 | `tte` (terminal-text-effects) | Animation engine | ✓ Yes |
 
 > **Wayland users:** XWayland must be enabled. Pure Wayland without XWayland is not supported.
@@ -105,11 +105,20 @@ Add this line to `~/.config/hypr/hyprland.conf`:
 bind = SUPER ALT, Space, exec, sonder-screensaver
 ```
 
+Using the newer Lua config (`~/.config/hypr/hyprland.lua`, Hyprland 0.56+)? Add this instead:
+
+```lua
+hl.bind("SUPER + ALT + Space", hl.dsp.exec_cmd("sonder-screensaver"))
+```
+
 Then reload Hyprland:
 
 ```bash
 hyprctl reload
 ```
+
+The mouse cursor is hidden while the screensaver runs on both config types (`hyprctl eval` for Lua
+configs, `hyprctl keyword` for the classic one) and comes back when it exits.
 
 To use a different key, replace `Space` with any key name from the [Hyprland key list](https://wiki.hyprland.org/Configuring/Binds/).
 
